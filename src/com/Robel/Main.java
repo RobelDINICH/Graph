@@ -23,7 +23,7 @@ public class Main {
         
 
         System.out.println("Welcome to the AOE Maker ");
-        System.out.println("Enter values ");
+        System.out.println("Enter values \n");
         numNodes = reader.nextInt();  //reads in number of Vertices
 
         //Storing Vertices
@@ -58,10 +58,9 @@ public class Main {
 
             //If value in matrix != -1 increase edges
             for (int i = 0; i < numNodes; i++) {
-                if(!(adjacencyM[i][m] == -1)){
+                if(!(adjacencyM[i][m] == -1))
                     edgesInCounter++;
 
-                }
             }
             edgesIn[m] = edgesInCounter;
         }
@@ -90,23 +89,23 @@ public class Main {
             System.exit(0);
         }
 
-        System.out.println("Ordering");
-        for (int j : topologicalArr) System.out.println(j + " ");
+        System.out.print("Ordering: ");
+        for (int j : topologicalArr) System.out.print(j + " ");
 
 
         System.out.println("\n\nStage     Early     Late");
         for (int i = 0; i < lst.length; i++) {
             if(i+1 == topologicalArr[i])
-                System.out.println(i+1 + "     " + est[topologicalArr[i]-1] + "     " + lst[topologicalArr[i]-1]);
+                System.out.println(i+1 + "          " + est[topologicalArr[i]-1] + "          " + lst[topologicalArr[i]-1]);
             else
-                System.out.println(i+1 + "     " + est[i] + "     " + lst[i]);
+                System.out.println(i+1 + "          " + est[i] + "          " + lst[i]);
         }
 
         System.out.println("\nTotal Projection Time: " + est[est.length-1] + "\n");
         System.out.println("Activity     Early     Late");
 
         for (int i = 0; i < earlyActivity.length; i++)
-            System.out.println(i+1 + "     " + earlyActivity[i] + "     " + lateActivity[i]);
+            System.out.println(i+1 + "            " + earlyActivity[i] + "          " + lateActivity[i]);
 
 
         System.out.println("\nCritical Activities: " + critical);

@@ -45,11 +45,12 @@ public class Grapher {
             topArray[counter] = stages[topValue];
 
             for (int i = 0; i < stages.length; i++) {
-                if (adjacencyMatrix[topValue][i] > 0)
+                if (adjacencyMatrix[topValue][i] > 0) {
                     numEdges[i]--;
 
-                if (numEdges[i] == 0)
-                    stacker.push(i);
+                    if (numEdges[i] == 0)
+                        stacker.push(i);
+                }
             }
             counter++;
         }
@@ -109,9 +110,6 @@ public class Grapher {
         return late;
 
     }//End of LST
-
-
-
 
 
     //Array Reverser
