@@ -110,10 +110,10 @@ public class Main {
 
         //Prints Total Project Tim
         System.out.println("\nTotal Projection Time: " + est[est.length - 1] + "\n");
-        System.out.println("Activity    Early     Late");
+        System.out.println("Activity    Early   Late");
 
         for (int i = 0; i < earlyActivity.length; i++)
-            System.out.println(i + 1 + "            " + earlyActivity[i] + "         " + lateActivity[i]);
+            System.out.println(i + 1 + "            " + earlyActivity[i] + "       " + lateActivity[i]);
 
         //Prints Critical Activities
 

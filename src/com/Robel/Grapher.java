@@ -41,10 +41,11 @@ class Grapher {
                 }
             }
             counter++;
+
             //Project is Feasible
             feasibility = true;
         }
-        //feasibility = true;
+
         return topological;
     }
 
