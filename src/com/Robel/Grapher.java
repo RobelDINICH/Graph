@@ -41,8 +41,10 @@ class Grapher {
                 }
             }
             counter++;
+            //Project is Feasible
+            feasibility = true;
         }
-        feasibility = true;
+        //feasibility = true;
         return topological;
     }
 
@@ -93,7 +95,6 @@ class Grapher {
                     earlyA[counter] = est[i];
                     counter++;
                 }
-
             }
         }
         return earlyA;
@@ -182,5 +183,4 @@ class Grapher {
     boolean isFeasible() {
         return feasibility;
     }
-
 } //End of Grapher

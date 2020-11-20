@@ -6,28 +6,23 @@ Assignment number and name: Can it be done? Comp B.
 Submission date: Nov 19 2020
  */
 
-
 package com.Robel;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) throws RobelEmptyStackException {
-
 
         Scanner reader = new Scanner(System.in);
 
         int numNodes, stages = 0, actCount = 0, outEdges = 0, edgesInCounter = 0, stageColumn = 0;
-        boolean feasiblity = false;
         int[][] adjacencyM;
         int[] stageValue, edgesIn, topologicalArr;
 
         //Array for edges going into a given Stage
         int[] earlyActivity, est;
         int[] lateActivity, lst;
-
 
         System.out.println("Welcome to the AOE Maker ");
         System.out.println("Enter values \n");
@@ -75,59 +70,54 @@ public class Main {
             }
         }
 
-            Grapher graph = new Grapher(edgesIn, adjacencyM);
+        //Grapher Object
+        Grapher graph = new Grapher(edgesIn, adjacencyM);
 
-            // Grapher graph = new Grapher(adjacencyM, edgesIn);
+        //Using Grapher Class to do all the calculations
+        //Storing Topological Array
+        topologicalArr = graph.topologicalOrdering(stageValue);
 
-            //Storing Topological Array
-            topologicalArr = graph.topologicalOrdering(stageValue);
+        //Setting Late Stage and Early Stage
+        est = graph.earlyStager(topologicalArr, stageValue);
+        lst = graph.lateStager(est[est.length - 1], topologicalArr, stageValue);
 
-            //Setting Late Stage and Early Stage
-            est = graph.earlyStager(topologicalArr, stageValue);
-            lst = graph.lateStager(est[est.length - 1], topologicalArr, stageValue);
+        earlyActivity = graph.earlyActivities(actCount, stageValue.length, est);
+        lateActivity = graph.lateActivities(actCount, stageValue.length, lst);
 
-            //Checking Graph Feasibility
-            feasiblity = graph.isFeasible();
-
-
-            /////////////
-            earlyActivity = graph.earlyActivities(actCount, stageValue.length, est);
-            lateActivity = graph.lateActivities(actCount, stageValue.length, lst);
+        ArrayList<Integer> critical = graph.criticalActivities(lateActivity, earlyActivity);
 
 
-            ArrayList<Integer> critical = graph.criticalActivities(lateActivity, earlyActivity);
-            //////////////////////////
+        //Console Displayer
+        if (graph.isFeasible()) {
+            System.out.println("\nThe project is Feasible");
 
-            //Console Displayer
-
-            if (feasiblity)
-                System.out.println("\nThe project is Feasible");
-            else {
-                System.out.println("\nThe project is not feasible");
-                System.exit(0);
-            }
-
-            //Prints Topological Ordering
-            System.out.print("Ordering: ");
-            for (int j : topologicalArr) System.out.print(j + " ");
-
-            System.out.println("\n\nStage      Early         Late");
-            for (int i = 0; i < lst.length; i++) {
-                if (i + 1 == topologicalArr[i])
-                    System.out.println(i + 1 + "            " + est[topologicalArr[i] - 1] + "            " + lst[topologicalArr[i] - 1]);
-                else
-                    System.out.println(i + 1 + "            " + est[i] + "            " + lst[i]);
-            }
-
-            //Prints Total Project Tim
-            System.out.println("\nTotal Projection Time: " + est[est.length - 1] + "\n");
-            System.out.println("Activity    Early     Late");
-
-            for (int i = 0; i < earlyActivity.length; i++)
-                System.out.println(i + 1 + "            " + earlyActivity[i] + "         " + lateActivity[i]);
-
-            //Prints Critical Activities
-            System.out.println("\nCritical Activities: " + critical);
-
+        }else {
+            System.out.println("\nThe project is not feasible\nProgram Terminated :)");
+            System.exit(0);
         }
-    }
+
+        //Prints Topological Ordering
+        System.out.print("Ordering: ");
+        for (int j : topologicalArr) System.out.print(j + " ");
+
+        System.out.println("\n\nStage      Early         Late");
+        for (int i = 0; i < lst.length; i++) {
+            if (i + 1 == topologicalArr[i])
+                System.out.println(i + 1 + "            " + est[topologicalArr[i] - 1] + "            " + lst[topologicalArr[i] - 1]);
+            else
+                System.out.println(i + 1 + "            " + est[i] + "            " + lst[i]);
+        }
+
+        //Prints Total Project Tim
+        System.out.println("\nTotal Projection Time: " + est[est.length - 1] + "\n");
+        System.out.println("Activity    Early     Late");
+
+        for (int i = 0; i < earlyActivity.length; i++)
+            System.out.println(i + 1 + "            " + earlyActivity[i] + "         " + lateActivity[i]);
+
+        //Prints Critical Activities
+
+        System.out.println("\nCritical Activities: " + critical);
+
+    }//End of Main Method
+}//End of Main Class
